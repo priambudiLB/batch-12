@@ -5,7 +5,7 @@ function App() {
   console.log('hihi')
   const text = "Bagas"
   const num = 10
-  const skills = ["html", "css", "js", "react"]
+  const skills = ["html", "css", "js", "react", "html"]
   const data = [
     {
       name: "react",
@@ -23,10 +23,13 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>{text + " " + num}</p>
         <ul>
-          {skills.map((value, index) => (
-            // kalo pake fungsi .map, jangan lupa pasang attribute "key" di element terluar
-            <li key={index}>{value}</li>
-          ))}
+          {skills.map((value, index) => {
+            console.log(value, index)
+            return (
+              // kalo pake fungsi .map, jangan lupa pasang attribute "key" di element terluar
+              <li key={index}>{value}</li>
+            )
+          })}
         </ul>
         <ol>
           {data.map((value, index) => (
