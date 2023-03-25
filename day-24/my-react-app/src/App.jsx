@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
+  // use.... useXxxxx biasanya disebut 'react hooks'
   const [count, setCount] = useState(0)
 
   return (
