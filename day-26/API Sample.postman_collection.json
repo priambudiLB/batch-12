@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "fb47f98e-a790-4d0d-bcbd-bcbb32cedf52",
+		"name": "API Sample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5783524"
+	},
+	"item": [
+		{
+			"name": "https://api.data.gov.sg/v1/environment/air-temperature",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.data.gov.sg/v1/environment/air-temperature",
+					"protocol": "https",
+					"host": [
+						"api",
+						"data",
+						"gov",
+						"sg"
+					],
+					"path": [
+						"v1",
+						"environment",
+						"air-temperature"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Account Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.themoviedb.org/3/account?api_key=e37c79c53f9d7b138c1790e896ed6cb1&session_id=fcc7ad57a048371bbfd4d2020cb8f5c0ef6a6d94",
+					"protocol": "https",
+					"host": [
+						"api",
+						"themoviedb",
+						"org"
+					],
+					"path": [
+						"3",
+						"account"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "e37c79c53f9d7b138c1790e896ed6cb1"
+						},
+						{
+							"key": "session_id",
+							"value": "fcc7ad57a048371bbfd4d2020cb8f5c0ef6a6d94"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
