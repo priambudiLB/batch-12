@@ -30,26 +30,9 @@ function App() {
       }
     })
       .then(function (response) {
-        Axios({
-          method: 'get',
-          url: 'http://localhost:7777/employee',
-          // data: {
-          //   name: 'x',
-          //   age: '1'
-          // }
-        })
-          .then(function (response) {
-            console.log(response.data.data)
-            setData(response.data.data)
-          });
+        handleGetAllData()
       });
   }
-
-  /*
-    EXERCISE:
-    Coba implement tombol delete, panggil API endpoint untuk delete employee
-    10 menit
-  */
 
   const handleEdit = (id, name, age) => {
     console.log(id)
@@ -64,22 +47,23 @@ function App() {
     })
       .then(function (response) {
         console.log(response.data.data)
-        Axios({
-          method: 'get',
-          url: 'http://localhost:7777/employee',
-          // data: {
-          //   name: 'x',
-          //   age: '1'
-          // }
-        })
-          .then(function (response) {
-            console.log(response.data.data)
-            setData(response.data.data)
-          });
+        handleGetAllData()
       });
   }
 
-  useEffect(() => {
+  const handleDelete = (id) => {
+    console.log(id)
+    Axios({
+      method: 'post',
+      url: `http://localhost:7777/employee/delete/${id}`
+    })
+      .then(function (response) {
+        console.log(response.data.data)
+        handleGetAllData()
+      });
+  }
+
+  const handleGetAllData = () => {
     Axios({
       method: 'get',
       url: 'http://localhost:7777/employee',
@@ -92,6 +76,10 @@ function App() {
         console.log(response.data.data)
         setData(response.data.data)
       });
+  }
+
+  useEffect(() => {
+    handleGetAllData()
   }, [])
 
   return (
@@ -116,7 +104,7 @@ function App() {
             <td>{item.id}</td>
             <td>{item.name}</td>
             <td>{item.age}</td>
-            <td><button onClick={() => handleEdit(item.id, item.name, item.age)}>Edit</button><button onClick={() => console.log("delete", item.id)}>Delete</button></td>
+            <td><button onClick={() => handleEdit(item.id, item.name, item.age)}>Edit</button><button onClick={() => handleDelete(item.id)}>Delete</button></td>
           </tr>
         })}
 
