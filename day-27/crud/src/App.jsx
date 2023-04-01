@@ -45,6 +45,40 @@ function App() {
       });
   }
 
+  /*
+    EXERCISE:
+    Coba implement tombol delete, panggil API endpoint untuk delete employee
+    10 menit
+  */
+
+  const handleEdit = (id, name, age) => {
+    console.log(id)
+    Axios({
+      method: 'put',
+      url: `http://localhost:7777/employee/${id}`,
+      data: {
+        name: name,
+        age: (parseInt(age) + 1).toString()
+        // age: parseInt(age) + 1 + ""
+      }
+    })
+      .then(function (response) {
+        console.log(response.data.data)
+        Axios({
+          method: 'get',
+          url: 'http://localhost:7777/employee',
+          // data: {
+          //   name: 'x',
+          //   age: '1'
+          // }
+        })
+          .then(function (response) {
+            console.log(response.data.data)
+            setData(response.data.data)
+          });
+      });
+  }
+
   useEffect(() => {
     Axios({
       method: 'get',
@@ -82,7 +116,7 @@ function App() {
             <td>{item.id}</td>
             <td>{item.name}</td>
             <td>{item.age}</td>
-            <td><button onClick={() => console.log("edit", item.id)}>Edit</button><button onClick={() => console.log("delete", item.id)}>Delete</button></td>
+            <td><button onClick={() => handleEdit(item.id, item.name, item.age)}>Edit</button><button onClick={() => console.log("delete", item.id)}>Delete</button></td>
           </tr>
         })}
 
