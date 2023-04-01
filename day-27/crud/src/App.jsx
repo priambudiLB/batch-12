@@ -6,6 +6,13 @@ function App() {
   const [count, setCount] = useState(0)
   const [data, setData] = useState([])
 
+  /*
+    EXERCISE:
+    Buat table untuk menampilkan data dari backend, ada ID, NAME, AGE.
+    Tambah juga kolom buat button EDIT dan DELETE
+
+    10 menit
+  */
   useEffect(() => {
     Axios({
       method: 'get',
@@ -23,11 +30,23 @@ function App() {
 
   return (
     <div className="App">
-      <ul>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>NAME</th>
+          <th>AGE</th>
+          <th></th>
+        </tr>
         {data.map(item => {
-          return <li key={item.id}>[{item.id} | {item.name} | {item.age}]</li>
+          return <tr>
+            <td>{item.id}</td>
+            <td>{item.name}</td>
+            <td>{item.age}</td>
+            <td><button onClick={() => console.log("edit", item.id)}>Edit</button><button onClick={() => console.log("delete", item.id)}>Delete</button></td>
+          </tr>
         })}
-      </ul>
+
+      </table>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
