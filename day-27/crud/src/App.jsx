@@ -5,14 +5,46 @@ import Axios from 'axios'
 function App() {
   const [count, setCount] = useState(0)
   const [data, setData] = useState([])
+  const [nameCreate, setNameCreate] = useState("")
+  const [ageCreate, setAgeCreate] = useState("")
 
-  /*
-    EXERCISE:
-    Buat table untuk menampilkan data dari backend, ada ID, NAME, AGE.
-    Tambah juga kolom buat button EDIT dan DELETE
+  const handleNameChange = (e) => {
+    // console.log(e)
+    setNameCreate(e.target.value)
+  }
 
-    10 menit
-  */
+  const handleAgeChange = (e) => {
+    // console.log(e)
+    setAgeCreate(e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    console.log(nameCreate, ageCreate)
+    // Axios
+    Axios({
+      method: 'post',
+      url: 'http://localhost:7777/employee',
+      data: {
+        name: nameCreate,
+        age: ageCreate
+      }
+    })
+      .then(function (response) {
+        Axios({
+          method: 'get',
+          url: 'http://localhost:7777/employee',
+          // data: {
+          //   name: 'x',
+          //   age: '1'
+          // }
+        })
+          .then(function (response) {
+            console.log(response.data.data)
+            setData(response.data.data)
+          });
+      });
+  }
+
   useEffect(() => {
     Axios({
       method: 'get',
@@ -30,6 +62,14 @@ function App() {
 
   return (
     <div className="App">
+      <label for="name">Name:</label>
+      <input value={nameCreate} onChange={handleNameChange} type="text" id="name" name="name" />
+      <br />
+      <label for="age">Age:</label>
+      <input value={ageCreate} onChange={handleAgeChange} type="text" id="age" name="age" />
+      <br />
+      <input onClick={handleSubmit} type="submit" value="Submit" />
+      <br />
       <table>
         <tr>
           <th>ID</th>
