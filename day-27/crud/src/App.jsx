@@ -3,6 +3,7 @@ import './App.css'
 import Axios from 'axios'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import Count from './components/Count';
 
 function App() {
   const formik = useFormik({
@@ -35,7 +36,6 @@ function App() {
         });
     },
   });
-  const [count, setCount] = useState(0)
   const [data, setData] = useState([])
   const [nameCreate, setNameCreate] = useState("")
   const [ageCreate, setAgeCreate] = useState("")
@@ -185,11 +185,6 @@ function App() {
         })}
 
       </table>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
     </div>
   )
 }
