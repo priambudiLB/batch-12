@@ -1,12 +1,45 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import Axios from 'axios'
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 function App() {
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      age: '',
+      // title: ''
+    },
+    validationSchema: Yup.object({
+      name: Yup.string()
+        .min(5, 'Must be 5 characters or more')
+        .required('Required'),
+      age: Yup.string()
+        .required('Required'),
+    }),
+    onSubmit: values => {
+      const name = values.name
+      const age = values.age
+      console.log(values)
+      Axios({
+        method: 'post',
+        url: 'http://localhost:7777/employee',
+        data: {
+          name: name,
+          age: age
+        }
+      })
+        .then(function (response) {
+          handleGetAllData()
+        });
+    },
+  });
   const [count, setCount] = useState(0)
   const [data, setData] = useState([])
   const [nameCreate, setNameCreate] = useState("")
   const [ageCreate, setAgeCreate] = useState("")
+  const [titleCreate, setTitleCreate] = useState("")
 
   const handleNameChange = (e) => {
     // console.log(e)
@@ -16,6 +49,11 @@ function App() {
   const handleAgeChange = (e) => {
     // console.log(e)
     setAgeCreate(e.target.value)
+  }
+
+  const handleTitleChange = (e) => {
+    // console.log(e)
+    setTitleCreate(e.target.value)
   }
 
   const handleSubmit = (e) => {
@@ -84,11 +122,49 @@ function App() {
 
   return (
     <div className="App">
+      <form onSubmit={formik.handleSubmit}>
+        <label htmlFor="name">Name</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          onChange={formik.handleChange}
+          value={formik.values.name}
+        />
+        <br />
+        {formik.touched.name && formik.errors.name ? (
+          <div style={{ color: 'red'}}>{formik.errors.name}</div>
+        ) : null}
+        <label htmlFor="age">Age</label>
+        <input
+          id="age"
+          name="age"
+          type="text"
+          onChange={formik.handleChange}
+          value={formik.values.age}
+        />
+        <br />
+        {formik.touched.age && formik.errors.age ? (
+          <div>{formik.errors.age}</div>
+        ) : null}
+        {/* <label htmlFor="title">Title</label>
+        <input
+          id="title"
+          name="title"
+          type="text"
+          onChange={formik.handleChange}
+          value={formik.values.title}
+        /> */}
+        <button type="submit">Submit</button>
+      </form>
       <label for="name">Name:</label>
       <input value={nameCreate} onChange={handleNameChange} type="text" id="name" name="name" />
       <br />
       <label for="age">Age:</label>
       <input value={ageCreate} onChange={handleAgeChange} type="text" id="age" name="age" />
+      <br />
+      <label for="title">Title:</label>
+      <input value={titleCreate} onChange={handleTitleChange} type="text" id="title" name="title" />
       <br />
       <input onClick={handleSubmit} type="submit" value="Submit" />
       <br />
