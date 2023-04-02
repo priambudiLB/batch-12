@@ -133,7 +133,7 @@ function App() {
         />
         <br />
         {formik.touched.name && formik.errors.name ? (
-          <div style={{ color: 'red'}}>{formik.errors.name}</div>
+          <div style={{ color: 'red' }}>{formik.errors.name}</div>
         ) : null}
         <label htmlFor="age">Age</label>
         <input
